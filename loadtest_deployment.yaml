@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadtester
+spec:
+  selector:
+    matchLabels:
+      app: loadtest
+  replicas: 0
+  template:
+    metadata:
+      labels:
+        app: loadtest
+    spec:
+      affinity:  # in order to allocate one pod to one node
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - loadtest
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: loadtester-server
+        image: <LOADTEST_ECR_URL>
+
