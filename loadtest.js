@@ -28,7 +28,7 @@ async function runCallTest(callerTester, calleeTester, appId) {
 class Tester {
     constructor(chromeDriver) {
         this._id = uuid();
-        this.driver = chromeDriver
+        this.driver = chromeDriver;
     }
 
     async cmd(cmdName, arg) {
